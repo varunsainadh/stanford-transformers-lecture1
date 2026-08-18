@@ -25,6 +25,37 @@ The Transformer model, introduced in the paper *"Attention Is All You Need"* (20
   - *Encoder-Decoder Attention*: Allows the decoder to focus on relevant parts of the input sequence processed by the encoder.
 - **Positional Encoding**: Since Transformers process all tokens simultaneously (without a built-in sequential order like RNNs), positional encodings are injected into the input embeddings to provide the model with information about the relative or absolute position of the tokens in the sequence.
 
+### Architecture Flowchart
+```mermaid
+graph TD
+    subgraph Encoder
+        E1[Input Tokens] --> E2[Input Embeddings]
+        E2 --> E3["+ Positional Encoding"]
+        E3 --> E4[Multi-Head Self-Attention]
+        E4 --> E5[Add & Norm]
+        E5 --> E6[Feed Forward Network]
+        E6 --> E7[Add & Norm]
+    end
+
+    subgraph Decoder
+        D1[Output Tokens] --> D2[Output Embeddings]
+        D2 --> D3["+ Positional Encoding"]
+        D3 --> D4[Masked Multi-Head Attention]
+        D4 --> D5[Add & Norm]
+        
+        %% Connection from Encoder to Decoder
+        E7 -->|Encoder Output| D6[Encoder-Decoder Attention]
+        D5 --> D6
+        
+        D6 --> D7[Add & Norm]
+        D7 --> D8[Feed Forward Network]
+        D8 --> D9[Add & Norm]
+        D9 --> D10[Linear Layer & Softmax]
+        D10 --> D11[Output Probabilities]
+    end
+```
+
+
 ## Repository Structure
 - `tokenization_example.py`: A simple script demonstrating how tokenization works.
 - `self_attention.py`: A basic PyTorch implementation of the Self-Attention mechanism.
