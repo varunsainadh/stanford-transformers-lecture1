@@ -57,8 +57,9 @@ graph TD
 
 
 ## Repository Structure
-- `tokenization_example.py`: A simple script demonstrating how tokenization works.
-- `self_attention.py`: A basic PyTorch implementation of the Self-Attention mechanism.
+- `SYSTEM_PROMPTS/`: Real-world examples of how we communicate with Transformer-based Large Language Models (LLMs). These files act as the "steering wheel" for the LLM, setting its persona, rules, and constraints (e.g., QA formats, multi-language instructions).
+- `tokenization_example.py`: A simple script demonstrating how raw text is broken down into tokens and IDs.
+- `self_attention.py`: A basic PyTorch implementation of the core Self-Attention mathematical mechanism.
 - `notes/`: (To be added) Detailed markdown notes for the lecture.
 
 ## Getting Started
