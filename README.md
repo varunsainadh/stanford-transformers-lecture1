@@ -56,6 +56,26 @@ graph TD
 ```
 
 
+## Chatbot Application Architecture
+To demonstrate how Large Language Models are deployed and controlled, this repository includes a desktop UI application. Below is the architecture showing how the components interact to inject System Prompts into the Gemini API:
+
+```mermaid
+graph TD
+    User([User]) -->|1. Selects Persona| UI[ui.py <br/> Tkinter Desktop Interface]
+    User -->|2. Types Message| UI
+    
+    UI -->|3. Loads Selected Prompt| SP[SYSTEM_PROMPTS/ <br/> e.g., telugu_answers.txt]
+    UI -->|4. Passes Prompt & Message| Backend[chatbot.py <br/> Backend Logic]
+    
+    Backend -->|5. Loads API Key| Env[.env <br/> Environment Variables]
+    
+    Backend -->|6. API Request <br/> System Instruction + User Message| Gemini((Google Gemini API))
+    
+    Gemini -->|7. Generated Response| Backend
+    Backend -->|8. Returns Text| UI
+    UI -->|9. Displays Response| User
+```
+
 ## Repository Structure
 - `SYSTEM_PROMPTS/`: Real-world examples of how we communicate with Transformer-based Large Language Models (LLMs). These files act as the "steering wheel" for the LLM, setting its persona, rules, and constraints (e.g., QA formats, multi-language instructions).
 - `tokenization_example.py`: A simple script demonstrating how raw text is broken down into tokens and IDs.
